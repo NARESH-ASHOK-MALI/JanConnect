@@ -18,7 +18,9 @@
             <div class="card-body">
               <p class="card-text">
                 <b><%=listing.title%></b><br>
+                <% if (listing.date) { %>
                 <%= listing.date.toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric' }) %>
+                <% } %>
               </p> 
             </div>
           </div>
