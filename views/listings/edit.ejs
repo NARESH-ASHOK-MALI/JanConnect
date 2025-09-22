@@ -1,0 +1,74 @@
+<% layout('layouts/boilerplate') -%>
+<body>
+  <div class="row">
+    <div class="col-8 offset-2">
+      <br /><br />
+      <h3 id="cmp" >Edit your Listing</h3>
+      <form method="POST" action="/listings/<%= listing._id %>?_method=PUT">
+
+        <div class="mb-3">
+          <label id="cmp" for="title" class="form-label">Title</label>
+          <input
+            name="listing[title]"
+            value="<%= listing.title %>"
+            type="text"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label id="cmp" for="description" class="form-label">Description</label>
+          <textarea
+            class="form-control"
+            name="listing[description]"
+            required
+          ><%= listing.description %></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label id="cmp" for="image" class="form-label">Image link</label>
+          <input
+            name="listing[image]"
+            value="<%= listing.image %>"
+            type="text"
+            class="form-control"
+          />
+        </div>
+
+        <div class="row">
+          <div class="mb-3 col-md-4">
+            <label id="cmp" for="date" class="form-label">Date</label>
+            <input
+              name="listing[date]"
+              value="<%= listing.date.toISOString().split('T')[0] %>"
+              type="date"
+              class="form-control"
+            />
+          </div>
+
+          <div class="mb-3 col-md-8">
+            <label id="cmp" for="city" class="form-label">City</label>
+            <input
+              name="listing[city]"
+              value="<%= listing.city %>"
+              type="text"
+              class="form-control"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label id="cmp" for="location" class="form-label">Location</label>
+          <input
+            name="listing[location]"
+            value="<%= listing.location %>"
+            type="text"
+            class="form-control"
+          />
+        </div>
+        <button class="btn btn-dark add-btn mb-3">Edit Complaint</button>
+      </form>
+    </div>
+  </div>
+</body>

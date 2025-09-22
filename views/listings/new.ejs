@@ -1,0 +1,81 @@
+<% layout('layouts/boilerplate') -%>
+<body>
+  <div class="row mt-3">
+    <div class="col-8 offset-2">
+      <h3 id="cmp">Create a New Listing</h3>
+      
+      <form method="POST" action="/listings" novalidate class="needs-validation">
+
+        <div class="mb-3">
+          <label id="cmp" for="title" class="form-label">Title</label>
+          <input
+            name="listing[title]"
+            placeholder="e.g., Deep pothole on Main Street"
+            type="text"
+            class="form-control"
+            required
+          />
+          <div class="valid-feedback">Title looks good!</div>
+        </div>
+
+        <div class="mb-3">
+          <label id="cmp" for="description" class="form-label">Description</label>
+          <textarea
+            class="form-control"
+            name="listing[description]"
+            placeholder="Describe the issue in detail."
+            required
+          ></textarea>
+          <div class="valid-feedback">Description looks good!</div>
+        </div>
+
+        <div class="mb-3">
+          <label id="cmp" for="image" class="form-label">Image URL</label>
+          <input
+            name="listing[image]"
+            placeholder="Enter a direct link to an image"
+            type="text"
+            class="form-control"
+          />
+        </div>
+
+        <div class="row">
+          <div class="mb-3 col-md-4">
+            <label id="cmp" for="date" class="form-label">Date</label>
+            <input
+              name="listing[date]"
+              type="date"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="mb-3 col-md-8">
+            <label id="cmp" for="city" class="form-label">City</label>
+            <input
+              name="listing[city]"
+              placeholder="e.g., Pune"
+              type="text"
+              class="form-control"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label id="cmp" for="location" class="form-label">Location</label>
+          <input
+            name="listing[location]"
+            placeholder="e.g., Main Street by Central Park"
+            type="text"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <button class="btn btn-dark add-btn mt-3">Register</button>
+        <br /><br />
+      </form>
+    </div>
+  </div>
+</body>

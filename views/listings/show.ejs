@@ -1,0 +1,38 @@
+<% layout('layouts/boilerplate') -%>
+<div class="row mb-3">
+  <div class="col-8 offset-2">
+    <h3 id="cmp">Complaint Details:</h3>
+
+    <div class="card">
+      <img
+        src="<%= listing.image %>"
+        alt="<%= listing.title %>"
+        class="card-img-top show-img"
+      />
+      <div class="card-body">
+        <p class="card-text">
+          <b><%= listing.title %></b><br />
+          <%= listing.description %> <br />
+
+          <i class="fa-solid fa-calendar-days"></i> 
+          <%= listing.date.toLocaleDateString("en-IN") %> <br />
+
+          <i class="fa-solid fa-location-dot"></i> 
+          <%= listing.location %>, <%= listing.city %>
+        </p>
+      </div>
+    </div>
+
+    <div class="btns mt-3">
+      <a
+        href="/listings/<%= listing._id %>/edit"
+        class="btn btn-dark add-btn edit"
+        >Edit
+      </a>
+
+      <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
+        <button class="delete btn btn-dark">Complaint Resolved</button>
+      </form>
+    </div>
+  </div>
+</div>

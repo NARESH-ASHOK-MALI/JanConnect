@@ -1,0 +1,31 @@
+<% layout('layouts/boilerplate') -%>
+<body>
+  <h3 id="cmp">All Complaints:</h3>
+  
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    
+    <% for(let listing of allListings) { %>
+    
+      <div class="col">
+        <a href="/listings/<%= listing._id %>" class="listing-link">
+          <div class="card h-100"> <img 
+              src="<%=listing.image%>" 
+              class="card-img-top" 
+              alt="Listing Image" 
+              style="height: 20rem;"
+            >
+            <div class="card-img-overlay"></div>
+            <div class="card-body">
+              <p class="card-text">
+                <b><%=listing.title%></b><br>
+                <%= listing.date.toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric' }) %>
+              </p> 
+            </div>
+          </div>
+        </a>
+      </div>
+      
+    <% } %>
+    
+  </div>
+</body>

@@ -1,0 +1,203 @@
+
+body{
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    margin-left:3rem !important ;
+    margin-right:3rem !important ;
+    margin-top: 1rem !important;
+    display: flex;
+    flex-direction: column;
+    background: url(/Assets/bg.jpg);
+    background-size: cover;
+    min-height: 100vh;
+    color: #ebebeb;
+}
+/* home.ejs */
+.container-home {
+      height: 100vh;    
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-around;
+      width: 100%;
+    }
+
+    .logo-home {
+      width: 300px;
+      height: 300px;
+      animation: spin 8s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .actions {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.button {
+  --border-right: 6px;
+  --text-stroke-color: rgba(255,255,255,0.6);
+  --animation-color: #37FF8B;
+  --fs-size: 2em;
+
+  position: relative;
+  display: inline-block;
+  font-size: var(--fs-size);
+  font-family: Arial, sans-serif;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--text-stroke-color);
+  overflow: hidden;
+}
+
+/* Hover animation layer */
+.button::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;                       /* Start hidden */
+  height: 100%;                   /* Cover full height of text */
+  color: var(--animation-color);
+  white-space: nowrap;            /* Keep full text in one line */
+  -webkit-text-stroke: 1px var(--animation-color);
+  border-right: var(--border-right) solid var(--animation-color);
+  overflow: hidden;
+  transition: width 0.5s ease;
+}
+
+/* On hover, reveal */
+.button:hover::before {
+  width: 100%;
+  filter: drop-shadow(0 0 23px var(--animation-color));
+}
+
+/* ---------- */
+.container{
+    flex: 1;
+}
+.navbar{
+    height: 5rem;
+}
+.fa-compass{
+    color: #fe424d;
+    font-size: 2rem;
+}
+.nav-link{
+    color:#ebebeb !important;
+}
+/* cards */
+#cmp{
+    color: white !important;
+}
+.card{
+    border: none !important;
+    margin-bottom: 1rem;
+    border-radius: 30px !important;
+    background-color: transparent !important;
+    color: white !important;
+}
+.card-details .card {
+    background-color: transparent;
+    color:white;
+}
+.details{
+    color:white;
+}
+.col-complaints{
+    margin-bottom: 1rem !important;
+    margin-top: 2rem !important;
+    border-radius: 1rem !important;
+}
+.card-img-top{
+    border-radius: 30px !important;
+    width: 100% !important;
+    object-fit: cover !important;
+}
+.listing-link{
+    text-decoration: none;
+}
+/* Card-Effect */
+.card-img-overlay{
+    opacity: 0;
+    border-radius: 30px !important;
+}
+.card-img-overlay:hover{
+    opacity: 0.2;
+    background-color: white;
+}
+
+.add-btn{
+    background-color: green !important;
+    border: none !important;
+}
+
+.show-img{
+    height: 60vh !important;
+    object-fit: cover !important;
+}
+.btns{
+    display: flex;
+}
+.btns .edit{
+    margin-right: 4rem;
+}
+.delete{
+    background-color: #fe424d !important;
+}
+
+form{
+    background-color:#425452;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 15px;
+}
+
+footer {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  color: #fff;
+  text-align: center;
+  padding: 15px;
+}
+
+/* Footer */
+.f-info-links a{
+    text-decoration: none;
+    color: #222222;
+}
+.f-info-links a:hover{
+    text-decoration: underline;
+}
+.f-info-brand,
+.f-info-links,
+.f-info-socials{
+    width:100%;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+    justify-content: center;
+    
+}
+.f-info-socials a i{
+    margin-right: 1rem;
+}
+.f-info{
+    background-color: #425452;
+    border-radius: 10px;
+    text-align: center;
+    height: 8rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: space-evenly;
+}
