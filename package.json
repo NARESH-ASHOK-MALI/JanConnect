@@ -10,10 +10,13 @@
   "author": "Naresh Ashok Mali",
   "license": "ISC",
   "dependencies": {
+    "cloudinary": "^1.41.3",
     "dotenv": "^17.2.2",
     "ejs-mate": "^4.0.0",
     "express": "^4.19.2",
     "method-override": "^3.0.0",
-    "mongoose": "^8.4.1"
+    "mongoose": "^8.4.1",
+    "multer": "^2.0.2",
+    "multer-storage-cloudinary": "^4.0.0"
   }
 }

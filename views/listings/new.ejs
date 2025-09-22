@@ -4,7 +4,7 @@
     <div class="col-8 offset-2">
       <h3 id="cmp">Create a New Listing</h3>
       
-      <form method="POST" action="/listings" novalidate class="needs-validation">
+      <form method="POST" action="/listings" novalidate class="needs-validation" enctype="multipart/form-data">
 
         <div class="mb-3">
           <label id="cmp" for="title" class="form-label">Title</label>
@@ -29,15 +29,18 @@
           <div class="valid-feedback">Description looks good!</div>
         </div>
 
-        <div class="mb-3">
-          <label id="cmp" for="image" class="form-label">Image URL</label>
-          <input
-            name="listing[image]"
-            placeholder="Enter a direct link to an image"
-            type="text"
-            class="form-control"
-          />
-        </div>
+            <div class="mb-3">
+                <label for="image-input" class="form-label">Upload Image</label>
+  
+                <input
+                name="listing[image]"
+                type="file"
+                class="form-control"
+                id="image-input"
+                required
+                />
+              <img id="image-preview" alt="Image Preview" class="img-fluid">
+            </div>
 
         <div class="row">
           <div class="mb-3 col-md-4">
@@ -78,4 +81,40 @@
       </form>
     </div>
   </div>
+ <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log("1. Page loaded. Script is running.");
+
+    const fileInput = document.getElementById('image-input');
+    const imagePreview = document.getElementById('image-preview');
+
+    console.log("2. Searching for elements:", { fileInput, imagePreview });
+
+    if (fileInput && imagePreview) {
+      console.log("3. Elements found! Adding the event listener.");
+
+      fileInput.addEventListener('change', () => {
+        console.log("4. File selected! The 'change' event fired.");
+
+        const file = fileInput.files[0];
+        if (file) {
+          console.log("5. A valid file was found:", file.name);
+          const reader = new FileReader();
+          
+          reader.onload = (e) => {
+            console.log("6. FileReader finished loading. Setting the preview image.");
+            imagePreview.src = e.target.result;
+            imagePreview.style.display = 'block'; 
+          };
+          
+          reader.readAsDataURL(file);
+        } else {
+          console.log("No valid file was found after the change event.");
+        }
+      });
+    } else {
+      console.log("ERROR: Could not find the file input or the image preview element. Please check that the id='image-input' and id='image-preview' exist in your HTML.");
+    }
+  });
+</script>
 </body>

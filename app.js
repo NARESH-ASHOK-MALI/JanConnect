@@ -6,15 +6,16 @@ const Listing = require("./models/listing.js");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
+const multer = require('multer');
+const { storage, cloudinary } = require('./cloudinary'); // ✅ CORRECTED THIS LINE
+const upload = multer({ storage });
 
-
-const dbUrl = process.env.MONGO_URL; // Read the variable from Vercel
-
+const dbUrl = process.env.MONGO_URL || "mongodb://127.0.0.1:27017/JanConnect";
 
 main().catch(err => console.log(err));
 
 async function main() {
-  await mongoose.connect(dbUrl);
+    await mongoose.connect(dbUrl);
 }
 
 app.set("view engine", "ejs");
@@ -25,70 +26,74 @@ app.use(express.static(path.join(__dirname, "public")));
 app.engine("ejs", ejsMate);
 
 app.get("/", (req, res) => {
-  res.render("listings/home.ejs");
+    res.render("listings/home.ejs");
 });
 
 //Index Route
 app.get("/listings", async (req, res) => {
-  const allListings = await Listing.find({});
-  res.render("listings/index.ejs", { allListings });
+    const allListings = await Listing.find({}).sort({ date: -1 });
+    res.render("listings/index.ejs", { allListings });
 });
 
 //New Route
 app.get("/listings/new", (req, res) => {
-  res.render("listings/new.ejs");
+    res.render("listings/new.ejs");
 });
 
 //Show Route
 app.get("/listings/:id", async (req, res) => {
-  let { id } = req.params;
-  const listing = await Listing.findById(id);
-  res.render("listings/show.ejs", { listing });
+    let { id } = req.params;
+    const listing = await Listing.findById(id);
+    res.render("listings/show.ejs", { listing });
 });
 
-//Create Route
-app.post("/listings", async (req, res) => {
-  const newListing = new Listing(req.body.listing);
-  await newListing.save();
-  res.redirect("/listings");
+//Create Route (with file upload)
+app.post("/listings", upload.single('listing[image]'), async (req, res) => {
+    const newListing = new Listing(req.body.listing);
+    newListing.image = req.file.path;
+    await newListing.save();
+    res.redirect("/listings");
 });
 
 //Edit Route
 app.get("/listings/:id/edit", async (req, res) => {
-  let { id } = req.params;
-  const listing = await Listing.findById(id);
-  res.render("listings/edit.ejs", { listing });
+    let { id } = req.params;
+    const listing = await Listing.findById(id);
+    res.render("listings/edit.ejs", { listing });
 });
 
-//Update Route
-app.put("/listings/:id", async (req, res) => {
-  let { id } = req.params;
-  await Listing.findByIdAndUpdate(id, { ...req.body.listing });
-  res.redirect(`/listings/${id}`);
+//Update Route (with file upload)
+app.put("/listings/:id", upload.single('listing[image]'), async (req, res) => {
+    let { id } = req.params;
+    const updatedListing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+
+    if (req.file) {
+        updatedListing.image = req.file.path;
+        await updatedListing.save();
+    }
+
+    res.redirect(`/listings/${id}`);
 });
 
 //Delete Route
 app.delete("/listings/:id", async (req, res) => {
-  let { id } = req.params;
-  let deletedListing = await Listing.findByIdAndDelete(id);
-  console.log(deletedListing);
-  res.redirect("/listings");
+    let { id } = req.params;
+    const listing = await Listing.findById(id);
+
+    if (listing && listing.image) {
+        try {
+            const publicId = listing.image.split('/').slice(-2).join('/').split('.')[0];
+            await cloudinary.uploader.destroy(publicId);
+            console.log(`Deleted image from Cloudinary: ${publicId}`);
+        } catch (error) {
+            console.error("Error deleting image from Cloudinary:", error);
+        }
+    }
+
+    await Listing.findByIdAndDelete(id);
+    res.redirect("/listings");
 });
 
-// app.get("/testListing", async (req, res) => {
-//   let sampleListing = new Listing({
-//     title: "My New Villa",
-//     description: "By the beach",
-//     price: 1200,
-//     location: "Calangute, Goa",
-//     country: "India",
-//   });
-
-//   await sampleListing.save();
-//   console.log("sample was saved");
-//   res.send("successful testing");
-// });
-
 app.listen(8080, () => {
-  console.log("server is listening to port 8080");
+    console.log("server is listening to port 8080");
 });
