@@ -41,36 +41,12 @@ To run this project on your local machine, follow these steps:
 ```bash
 git clone [https://github.com/NARESH-ASHOK-MALI/JanConnect.git](https://github.com/NARESH-ASHOK-MALI/JanConnect.git)
 cd JanConnect
-### 3. Install Dependencies:
+
+**3. Install Dependencies:**
 
 ```bash
 npm install
-
-###4. Set Up Environment Variables:
-##Create a .env file in the root of the project and add the following variables. Replace the placeholder values with your own credentials.
-# Your local or cloud MongoDB connection string
-MONGO_URL="mongodb://127.0.0.1:27017/JanConnect"
-
-# Your Cloudinary connection URL (includes cloud name, API key, and secret)
-CLOUDINARY_URL="cloudinary://<api_key>:<api_secret>@<cloud_name>"
-
-# A secret string for signing session cookies
-SECRET="thisisagoodsecret"
-
-###5. Seed the Database (Optional but Recommended):
-##To populate the database with sample users and complaints, run the initialization script from the root directory:
-```bash
-node init/index.js
-
-Of course. Here is that section of text converted into proper Markdown format for your README.md file.
-
-Markdown
-
-### 3. Install Dependencies:
-
-```bash
-npm install
-4. Set Up Environment Variables:
+**4. Set Up Environment Variables:**
 Create a .env file in the root of the project and add the following variables. Replace the placeholder values with your own credentials.
 
 # Your local or cloud MongoDB connection string
@@ -81,7 +57,7 @@ CLOUDINARY_URL="cloudinary://<api_key>:<api_secret>@<cloud_name>"
 
 # A secret string for signing session cookies
 SECRET="thisisagoodsecret"
-5. Seed the Database (Optional but Recommended):
+**5. Seed the Database (Optional but Recommended):**
 To populate the database with sample users and complaints, run the initialization script from the root directory:
 
 Bash
@@ -94,5 +70,5 @@ Username: sampleuser
 Password: password123
 
 
-☁️ Deployment
-This application is deployed on Vercel. For continuous deployment, any push to the main branch on GitHub will automatically trigger a new build and deployment. The same environment variables listed above must be configured in the Vercel project settings.
+**☁️ Deployment
+This application is deployed on Vercel. For continuous deployment, any push to the main branch on GitHub will automatically trigger a new build and deployment. The same environment variables listed above must be configured in the Vercel project settings.**
