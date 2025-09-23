@@ -59,8 +59,12 @@ app.use((req, res, next) => {
 });
 
 // --- Middleware Definitions for Authorization ---
+
 const isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
+        // ✅ Store the url they are requesting in the session
+        req.session.returnTo = req.originalUrl; 
+        
         req.flash('error', 'You must be signed in to do that.');
         return res.redirect('/login');
     }
@@ -187,9 +191,13 @@ app.post('/signup', async (req, res, next) => {
         req.login(registeredUser, err => {
         if (err) return next(err);
         req.flash('success', 'Welcome to JanConnect!');
-        // ✅ Save the session before redirecting
+    
+    // ✅ Add the same redirect logic here
+        const redirectUrl = req.session.returnTo || '/listings';
+        delete req.session.returnTo;
+
         req.session.save(() => {
-            res.redirect('/listings');
+            res.redirect(redirectUrl);
         });
 });
     } catch (e) {
@@ -204,15 +212,18 @@ app.get('/login', (req, res) => {
 });
 
 // Handle login logic
+// app.js
+
 app.post('/login', passport.authenticate('local', {
     failureRedirect: '/login',
     failureFlash: true
-// ...
 }), (req, res) => {
     req.flash('success', 'Welcome back!');
-    // ✅ Save the session before redirecting
+    const redirectUrl = req.session.returnTo || '/listings';
+    delete req.session.returnTo; // Clean up the session variable
+
     req.session.save(() => {
-        res.redirect('/listings');
+        res.redirect(redirectUrl);
     });
 });
 
