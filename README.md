@@ -73,6 +73,3 @@ Username: sampleuser
 Password: password123
 ```
 
-
-**☁️ Deployment
-This application is deployed on Vercel. For continuous deployment, any push to the main branch on GitHub will automatically trigger a new build and deployment. The same environment variables listed above must be configured in the Vercel project settings.**
