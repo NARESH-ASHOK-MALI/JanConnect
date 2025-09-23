@@ -185,10 +185,13 @@ app.post('/signup', async (req, res, next) => {
         const newUser = new User({ email, username });
         const registeredUser = await User.register(newUser, password);
         req.login(registeredUser, err => {
-            if (err) return next(err);
-            req.flash('success', 'Welcome to JanConnect!');
+        if (err) return next(err);
+        req.flash('success', 'Welcome to JanConnect!');
+        // ✅ Save the session before redirecting
+        req.session.save(() => {
             res.redirect('/listings');
         });
+});
     } catch (e) {
         req.flash('error', e.message);
         res.redirect('/signup');
