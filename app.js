@@ -204,9 +204,13 @@ app.get('/login', (req, res) => {
 app.post('/login', passport.authenticate('local', {
     failureRedirect: '/login',
     failureFlash: true
+// ...
 }), (req, res) => {
     req.flash('success', 'Welcome back!');
-    res.redirect('/listings');
+    // ✅ Save the session before redirecting
+    req.session.save(() => {
+        res.redirect('/listings');
+    });
 });
 
 // Handle logout
