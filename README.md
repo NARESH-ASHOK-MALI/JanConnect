@@ -1,107 +1,45 @@
-# JanConnect - Community Complaint Resolution Platform
+# JanConnect - Community Complaint Resolution Platform  
 
-JanConnect is a full-stack web application designed to empower communities by providing a platform for citizens to report, track, and endorse local civic issues. From potholes and broken streetlights to overflowing trash bins, this application helps bring visibility to problems and connects the community to drive resolution.
+JanConnect is a full-stack web application that empowers communities to report, track, and endorse local civic issues. From potholes and broken streetlights to overflowing trash bins, JanConnect brings visibility to problems and connects the community to drive resolution.  
 
-**Live Demo:** [**Access JanConnect on Vercel**](https://jan-connect-rust.vercel.app/)
+**Live Demo:** [JanConnect on Vercel](https://jan-connect-rust.vercel.app/)  
 
-## ✨ Key Features
+---
 
-* **Full User Authentication**: Secure user registration and login system using Passport.js. Users can create accounts, log in, and log out.
-* **Complaint Management (CRUD)**: Authenticated users can create, read, update, and delete their own complaints.
-* **Authorization & Ownership**: Robust security ensures that users can only edit or delete the complaints they have created.
-* **Image Uploads**: Users can upload images directly from their device. Images are securely hosted on Cloudinary, with automatic resizing and compression for optimal performance.
-* **Image Preview**: An instant client-side preview is shown when a user selects an image to upload.
-* **Interactive Map & Location Picker**: An integrated Leaflet.js map allows users to pinpoint the exact location of a complaint by clicking on the map or using their device's GPS.
-* **Reverse Geocoding**: Converts map coordinates into human-readable street addresses using the Nominatim API.
-* **Community Endorsement / Reporting**: A "like" feature allows community members to endorse or report a complaint, helping to highlight the most pressing issues.
-* **Persistent Sessions**: User login sessions are stored persistently in the MongoDB database, so users remain logged in even after server restarts or redeployments.
-* **Flash Messages**: Provides user-friendly feedback for actions like successful logins, errors, and new complaint registrations.
-* **Responsive Design**: A clean, mobile-first interface built with Bootstrap 5.
+## ✨ Features  
 
-## 🛠️ Technologies Used
+- **User Authentication** – Secure registration/login with Passport.js.  
+- **Complaint Management (CRUD)** – Create, read, update, and delete complaints.  
+- **Authorization & Ownership** – Users can only modify their own complaints.  
+- **Image Uploads** – Upload and store images on Cloudinary with auto-resize & compression.  
+- **Image Preview** – Client-side preview before upload.  
+- **Interactive Map** – Pinpoint complaint locations using Leaflet.js with GPS support.  
+- **Reverse Geocoding** – Convert coordinates to addresses via Nominatim API.  
+- **Community Endorsement** – Like/report complaints to highlight priority issues.  
+- **Persistent Sessions** – MongoDB-backed sessions keep users logged in.  
+- **Flash Messages** – User-friendly notifications for actions and errors.  
+- **Responsive Design** – Mobile-first UI built with Bootstrap 5.  
 
-* **Frontend**: EJS, HTML5, CSS3, Bootstrap 5, Leaflet.js
-* **Backend**: Node.js, Express.js
-* **Database**: MongoDB with Mongoose
-* **Authentication**: Passport.js (`passport-local`, `passport-local-mongoose`), Express Session, Connect-Mongo
-* **Image Handling**: Cloudinary, Multer
-* **Deployment**: Vercel
+---
 
-## 🚀 Setup and Installation (For Local Development)
+## 🛠️ Tech Stack  
 
-To run this project on your local machine, follow these steps:
+**Frontend:** EJS, HTML5, CSS3, Bootstrap 5, Leaflet.js  
+**Backend:** Node.js, Express.js  
+**Database:** MongoDB + Mongoose  
+**Auth:** Passport.js (Local Strategy), Express Session, Connect-Mongo  
+**Image Handling:** Cloudinary, Multer  
+**Deployment:** Vercel  
 
-**1. Prerequisites:**
+---
 
-* Node.js and npm installed
-* MongoDB installed and running locally, or a MongoDB Atlas account
+## 🚀 Local Setup  
 
-**2. Clone the Repository:**
+### 1. Prerequisites  
+- Node.js & npm  
+- MongoDB (local or Atlas)  
 
+### 2. Clone Repository  
 ```bash
-git clone [https://github.com/NARESH-ASHOK-MALI/JanConnect.git](https://github.com/NARESH-ASHOK-MALI/JanConnect.git)
+git clone https://github.com/NARESH-ASHOK-MALI/JanConnect.git
 cd JanConnect
-<<<<<<< HEAD
-=======
-```
->>>>>>> d49e2de250bc2f9b54b84d3c580f8e33108d0465
-
-**3. Install Dependencies:**
-
-```bash
-npm install
-<<<<<<< HEAD
-
-**4. Set Up Environment Variables:**
-##Create a .env file in the root of the project and add the following variables. Replace the placeholder values with your own credentials.
-# Your local or cloud MongoDB connection string
-MONGO_URL="mongodb://127.0.0.1:27017/JanConnect"
-
-# Your Cloudinary connection URL (includes cloud name, API key, and secret)
-CLOUDINARY_URL="cloudinary://<api_key>:<api_secret>@<cloud_name>"
-
-# A secret string for signing session cookies
-SECRET="thisisagoodsecret"
-
-**5. Seed the Database (Optional but Recommended):**
-##To populate the database with sample users and complaints, run the initialization script from the root directory:
-```bash
-node init/index.js
-
-Of course. Here is that section of text converted into proper Markdown format for your README.md file.
-
-Markdown
-
-### 3. Install Dependencies:
-
-```bash
-npm install
-4. Set Up Environment Variables:
-=======
-```
-**4. Set Up Environment Variables:**
->>>>>>> d49e2de250bc2f9b54b84d3c580f8e33108d0465
-Create a .env file in the root of the project and add the following variables. Replace the placeholder values with your own credentials.
-```bash
-# Your local or cloud MongoDB connection string
-MONGO_URL="mongodb://127.0.0.1:27017/JanConnect"
-
-# Your Cloudinary connection URL (includes cloud name, API key, and secret)
-CLOUDINARY_URL="cloudinary://<api_key>:<api_secret>@<cloud_name>"
-
-# A secret string for signing session cookies
-SECRET="thisisagoodsecret"
-```
-**5. Seed the Database (Optional but Recommended):**
-To populate the database with sample users and complaints, run the initialization script from the root directory:
-
-```bash
-
-node init/index.js
-This will create a default user with the following credentials:
-
-Username: sampleuser
-
-Password: password123
-```
-
