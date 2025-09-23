@@ -22,17 +22,30 @@
         </p>
       </div>
     </div>
+    <div class="mt-3">
+    <h5 id="cmp">Reports: <%= listing.reports.length %></h5>
+    <% if (currentUser) { %>
+        <form action="/listings/<%= listing._id %>/report" method="POST">
+            <% const hasReported = listing.reports.includes(currentUser._id); %>
+            <button class="btn <%= hasReported ? 'btn-danger' : 'btn-primary' %>">
+                <%= hasReported ? 'Un-report' : 'Endorse / Report' %>
+            </button>
+        </form>
+    <% } %>
+</div>
 
-    <div class="btns mt-3">
-      <a
-        href="/listings/<%= listing._id %>/edit"
-        class="btn btn-dark add-btn edit"
-        >Edit
-      </a>
+   
+    
 
-      <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
-        <button class="delete btn btn-dark">Complaint Resolved</button>
-      </form>
+      <% if (currentUser && listing.author.equals(currentUser._id)) { %>
+          <div class="btns mt-3">
+            <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark add-btn edit" >Edit</a>
+            
+            <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
+                <button class="btn btn-dark delete">Complaint resolved</button>
+            </form>
+          </div>
+      <% } %>
     </div>
   </div>
 </div>

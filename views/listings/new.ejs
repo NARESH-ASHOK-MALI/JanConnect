@@ -2,7 +2,8 @@
 <body>
   <div class="row mt-3">
     <div class="col-8 offset-2">
-      <h3 id="cmp">Create a New Listing</h3>
+      <h3 id="cmp" >Register a complaint</h3>
+      <h6 id="cmp">Help improve your community by reporting civic issues. Your voice matters.</h6>
       
       <form method="POST" action="/listings" novalidate class="needs-validation" enctype="multipart/form-data">
 
@@ -67,21 +68,84 @@
         </div>
 
         <div class="mb-3">
-          <label id="cmp" for="location" class="form-label">Location</label>
-          <input
-            name="listing[location]"
-            placeholder="e.g., Main Street by Central Park"
-            type="text"
-            class="form-control"
-            required
-          />
+            <label for="location-input" id="cmp" class="form-label">Location</label>
+            <div class="input-group">
+            <input name="listing[location]" type="text" class="form-control" id="location-input" required />
+            <button class="btn btn-outline-secondary" type="button" id="get-location-btn" >Get My Location</button>
+          </div>
         </div>
+
+        <div id="map" class="mb-3"></div>
 
         <button class="btn btn-dark add-btn mt-3">Register</button>
         <br /><br />
       </form>
     </div>
   </div>
+  <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const locationInput = document.getElementById('location-input');
+    const getLocationBtn = document.getElementById('get-location-btn');
+    const mapContainer = document.getElementById('map');
+    
+    const map = L.map(mapContainer).setView([18.5204, 73.8567], 13);
+    
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    let marker = L.marker([18.5204, 73.8567]).addTo(map)
+        .bindPopup('Your selected location.').openPopup();
+
+    // ✅ This function now includes the reverse geocoding API call
+    function updateLocation(lat, lng) {
+        marker.setLatLng([lat, lng]);
+        map.setView([lat, lng], 15);
+        
+        // Show a loading message while we fetch the address
+        locationInput.value = "Fetching address...";
+
+        // The Nominatim API URL
+        const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.display_name) {
+                    // Update the input field with the address
+                    locationInput.value = data.display_name;
+                } else {
+                    // Fallback to coordinates if no address is found
+                    locationInput.value = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching address:', error);
+                locationInput.value = "Could not fetch address.";
+            });
+    }
+
+    map.on('click', function(e) {
+        updateLocation(e.latlng.lat, e.latlng.lng);
+    });
+
+    getLocationBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    updateLocation(position.coords.latitude, position.coords.longitude);
+                },
+                function() {
+                    alert('Could not get your location.');
+                }
+            );
+        } else {
+            alert('Geolocation is not supported by your browser.');
+        }
+    });
+});
+</script>
  <script>
   document.addEventListener('DOMContentLoaded', function() {
     console.log("1. Page loaded. Script is running.");

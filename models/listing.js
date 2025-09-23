@@ -22,6 +22,16 @@ const listingSchema = new Schema({
   },
   location: String,
   city: String,
+  author: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+  },
+  reports: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }
+    ]
 });
 
 const Listing = mongoose.model("Listing", listingSchema);

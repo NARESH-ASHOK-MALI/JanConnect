@@ -2,7 +2,7 @@
 body{
     font-family: 'Plus Jakarta Sans', sans-serif !important;
     display: flex;
-    margin-left: 3rem !important;
+    margin-left: 2rem !important;
     flex-direction: column;
     background: url(/Assets/bg.jpg);
     background-size: cover;
@@ -17,30 +17,37 @@ body{
       align-items: center;
       justify-content: space-around;
       width: 100%;
-    }
+}
 
-    .logo-home {
+.logo-home {
       width: 300px;
       height: 300px;
       animation: spin 8s linear infinite;
-    }
+}
 
-    @keyframes spin {
+@keyframes spin {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
-    }
+}
 
-    .actions {
+.btn-home-page {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  background-color: rgba(0, 0, 0, 0.356);
+  margin-bottom: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+  border-radius: 10px;
   align-items: center;
 }
 
 .button {
   --border-right: 6px;
-  --text-stroke-color: rgba(255,255,255,0.6);
-  --animation-color: #37FF8B;
+  --text-stroke-color: rgba(255, 255, 255, 0.962);
+  --animation-color: #ffffff;
   --fs-size: 2em;
 
   position: relative;
@@ -84,7 +91,7 @@ body{
 .navbar{
     margin-left: 0rem !important;
     height: 5rem;
-    background-color: #151918 !important;
+    background-color: #15191861 !important;
 }
 .fa-compass{
     color: #fe424d;
@@ -98,13 +105,19 @@ body{
     color: white !important;
 }
 
-
+/* public/css/style.css */
+#map {
+    height: 400px;
+    width: 100%;
+    border: white solid 2px !important;
+    border-radius: 30px !important;
+}
 
 .card{
     border: none !important;
-    margin-bottom: 1rem;
+    margin:1rem 1.2rem 2rem 1.2rem !important;
     border-radius: 30px !important;
-    background-color: transparent !important;
+    background-color: rgba(0, 0, 0, 0.236) !important;
     color: white !important;
 }
 .card-details .card {
@@ -122,6 +135,7 @@ body{
 .card-img-top{
     border-radius: 30px !important;
     width: 100% !important;
+    height: 400px !important;
     object-fit: cover !important;
 }
 .listing-link{
@@ -129,17 +143,18 @@ body{
 }
 /* Card-Effect */
 .card-img-overlay{
-    opacity: 0;
     border-radius: 30px !important;
-}
-.card-img-overlay:hover{
-    opacity: 0.2;
-    background-color: white;
 }
 
 .add-btn{
-    background-color: green !important;
+    background-color: rgba(0, 128, 0, 0.613) !important;
     border: none !important;
+    width: fit-content !important;
+}
+
+.login{
+    display: flex !important;
+    justify-content: center !important;
 }
 
 .show-img{
@@ -157,50 +172,33 @@ body{
 }
 
 form{
-    background-color:#425452;
+    background-color:rgba(0, 0, 0, 0.292) !important ;
     padding-left: 10px;
     padding-right: 10px;
     border-radius: 15px;
 }
-
-footer {
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  color: #fff;
+/* Footer Styles */
+.f-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   text-align: center;
-  padding: 15px;
+  padding: 1rem;
+  background-color: #0c0c0cb4; /* A light grey background */
+    border-radius: 10px;
 }
 
-/* Footer */
-.f-info-links a{
-    text-decoration: none;
-    color: #222222;
+.f-info-socials a,
+.f-info-links a {
+  margin: 0 0.5rem; /* Adds some space between icons/links */
+  text-decoration: none;
+  color: #62809f; /* A dark color for the text/icons */
 }
-.f-info-links a:hover{
-    text-decoration: underline;
+
+.f-info-socials i {
+  font-size: 1.2rem; /* Make icons slightly larger */
 }
-.f-info-brand,
-.f-info-links,
-.f-info-socials{
-    width:100%;
-    font-size: 1.3rem;
-    display: flex;
-    align-items: center;
-    vertical-align: middle;
-    justify-content: center;
-    
-}
-.f-info-socials a i{
-    margin-right: 1rem;
-}
-.f-info{
-    background-color: #425452;
-    border-radius: 10px;
-    text-align: center;
-    height: 8rem;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: space-evenly;
+.f-info-brand {
+  font-size: 1rem; /* Standard font size for links */
+    color: #bac0c6 !important ; /* A dark color for the text/icons */
 }

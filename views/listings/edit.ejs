@@ -57,19 +57,84 @@
         </div>
 
         <div class="mb-3">
-          <label id="cmp" for="location" class="form-label">Location</label>
-          <input
-            name="listing[location]"
-            value="<%= listing.location %>"
-            type="text"
-            class="form-control"
-          />
+            <label for="location-input" id="cmp" class="form-label">Location</label>
+            <div class="input-group">
+            <input name="listing[location]" type="text" class="form-control" id="location-input" value="<%= listing.location %>" required />
+            <button class="btn btn-outline-secondary" type="button" id="get-location-btn">Get My Location</button>
+            </div>
         </div>
+
+        <div id="map" class="mb-3"></div>
         <button class="btn btn-dark add-btn mb-3">Save Changes</button>
+        </div>
+        
       </form>
     </div>
   </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const locationInput = document.getElementById('location-input');
+    const getLocationBtn = document.getElementById('get-location-btn');
+    const mapContainer = document.getElementById('map');
+    
+    const map = L.map(mapContainer).setView([18.5204, 73.8567], 13);
+    
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
 
+    let marker = L.marker([18.5204, 73.8567]).addTo(map)
+        .bindPopup('Your selected location.').openPopup();
+
+    // ✅ This function now includes the reverse geocoding API call
+    function updateLocation(lat, lng) {
+        marker.setLatLng([lat, lng]);
+        map.setView([lat, lng], 15);
+        
+        // Show a loading message while we fetch the address
+        locationInput.value = "Fetching address...";
+
+        // The Nominatim API URL
+        const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.display_name) {
+                    // Update the input field with the address
+                    locationInput.value = data.display_name;
+                } else {
+                    // Fallback to coordinates if no address is found
+                    locationInput.value = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching address:', error);
+                locationInput.value = "Could not fetch address.";
+            });
+    }
+
+    map.on('click', function(e) {
+        updateLocation(e.latlng.lat, e.latlng.lng);
+    });
+
+    getLocationBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    updateLocation(position.coords.latitude, position.coords.longitude);
+                },
+                function() {
+                    alert('Could not get your location.');
+                }
+            );
+        } else {
+            alert('Geolocation is not supported by your browser.');
+        }
+    });
+});
+</script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const fileInput = document.getElementById('image-input');

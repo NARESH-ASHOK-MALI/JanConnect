@@ -1,0 +1,20 @@
+<% layout('layouts/boilerplate') -%>
+
+<div class="row mt-3">
+    <div class="col-6 offset-3">
+        <h3 id="cmp">Log In to JanConnect</h3>
+        <form action="/login" method="POST" class="needs-validation" novalidate style="height: 60vh;">
+            <div class="mb-3">
+                <label for="username" class="form-label" id="cmp">Username</label>
+                <input type="text" id="username" name="username" class="form-control" id="cmp" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label" id="cmp">Password</label>
+                <input type="password" id="password" name="password" class="form-control" id="cmp" required>
+            </div>
+
+            <div class="login"><button class="btn btn-success " id="cmp">Log In</button></div>
+        </form>
+    </div>
+</div>
