@@ -41,11 +41,16 @@ To run this project on your local machine, follow these steps:
 ```bash
 git clone [https://github.com/NARESH-ASHOK-MALI/JanConnect.git](https://github.com/NARESH-ASHOK-MALI/JanConnect.git)
 cd JanConnect
+<<<<<<< HEAD
+=======
+```
+>>>>>>> d49e2de250bc2f9b54b84d3c580f8e33108d0465
 
 **3. Install Dependencies:**
 
 ```bash
 npm install
+<<<<<<< HEAD
 
 **4. Set Up Environment Variables:**
 ##Create a .env file in the root of the project and add the following variables. Replace the placeholder values with your own credentials.
@@ -72,8 +77,12 @@ Markdown
 ```bash
 npm install
 4. Set Up Environment Variables:
+=======
+```
+**4. Set Up Environment Variables:**
+>>>>>>> d49e2de250bc2f9b54b84d3c580f8e33108d0465
 Create a .env file in the root of the project and add the following variables. Replace the placeholder values with your own credentials.
-
+```bash
 # Your local or cloud MongoDB connection string
 MONGO_URL="mongodb://127.0.0.1:27017/JanConnect"
 
@@ -82,10 +91,11 @@ CLOUDINARY_URL="cloudinary://<api_key>:<api_secret>@<cloud_name>"
 
 # A secret string for signing session cookies
 SECRET="thisisagoodsecret"
-5. Seed the Database (Optional but Recommended):
+```
+**5. Seed the Database (Optional but Recommended):**
 To populate the database with sample users and complaints, run the initialization script from the root directory:
 
-Bash
+```bash
 
 node init/index.js
 This will create a default user with the following credentials:
@@ -93,7 +103,5 @@ This will create a default user with the following credentials:
 Username: sampleuser
 
 Password: password123
+```
 
-
-☁️ Deployment
-This application is deployed on Vercel. For continuous deployment, any push to the main branch on GitHub will automatically trigger a new build and deployment. The same environment variables listed above must be configured in the Vercel project settings.
