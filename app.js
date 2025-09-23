@@ -18,6 +18,40 @@ const upload = multer({ storage });
 
 const dbUrl = process.env.MONGO_URL || "mongodb://127.0.0.1:27017/JanConnect";
 
+// ... your other requires
+const session = require('express-session');
+const MongoStore = require('connect-mongo'); // 1. REQUIRE connect-mongo
+
+// ...
+
+// 2. CREATE a store object
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    crypto: {
+        secret: 'a-super-secret-string' // Use the same secret as your session
+    },
+    touchAfter: 24 * 3600 // time period in seconds
+});
+
+store.on("error", (err) => {
+    console.log("ERROR in MONGO SESSION STORE", err);
+});
+
+// 3. UPDATE your session options to use the new store
+const sessionOptions = {
+    store: store, // Use the MongoStore
+    secret: 'a-super-secret-string',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+        httpOnly: true
+    }
+};
+
+app.use(session(sessionOptions));
+// ... rest of your app configuration
 main().catch(err => console.log(err));
 async function main() {
     await mongoose.connect(dbUrl);
@@ -32,16 +66,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.engine("ejs", ejsMate);
 
 // --- Session and Passport Configuration ---
-const sessionOptions = {
-    secret: 'a-super-secret-string', // Change this to a real secret in production
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
-        maxAge: 7 * 24 * 60 * 60 * 1000,
-        httpOnly: true
-    }
-};
+
 app.use(session(sessionOptions));
 app.use(flash());
 app.use(passport.initialize());
