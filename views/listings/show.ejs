@@ -18,9 +18,30 @@
           <%= listing.date.toLocaleDateString("en-IN") %> <br />
 
           <i class="fa-solid fa-location-dot"></i> 
-          <%= listing.location %>, <%= listing.city %>
+          <%= listing.address || 'Location' %>, <%= listing.city %>
         </p>
       </div>
+    </div>
+    <div class="card p-3 mt-3">
+      <h5 id="cmp">Complaint Status</h5>
+      <% if (!listing.tracking || listing.tracking.length === 0) { %>
+        <div class="text-muted">No updates yet. Pending Verification.</div>
+      <% } else { %>
+        <ul class="timeline">
+        <% listing.tracking.forEach(function(step){ %>
+          <li>
+            <span class="status"><%= step.status %></span>
+            <span class="date"><%= new Date(step.updatedAt).toLocaleDateString('en-IN') %></span>
+            <% if (step.notes) { %>
+              <div class="notes"><%= step.notes %></div>
+            <% } %>
+          </li>
+        <% }) %>
+        </ul>
+      <% } %>
+      <% if (listing.assignedAuthority) { %>
+        <div class="small">Assigned Authority: <b><%= listing.assignedAuthority %></b></div>
+      <% } %>
     </div>
     <div class="mt-3">
     <h5 id="cmp">Reports: <%= listing.reports.length %></h5>

@@ -17,6 +17,7 @@ const MongoStore = require('connect-mongo');
 // --- Models ---
 const User = require('./models/user.js');
 const Listing = require("./models/listing.js");
+const Authority = require('./models/authority.js');
 
 // --- Cloudinary ---
 const { storage, cloudinary } = require('./cloudinary');
@@ -110,10 +111,22 @@ const isLoggedIn = (req, res, next) => {
     next();
 };
 
+const isAdmin = (req, res, next) => {
+    if (!req.isAuthenticated() || !req.user || req.user.role !== 'admin') {
+        req.flash('error', 'Admin access required.');
+        return res.redirect('/admin/login');
+    }
+    next();
+};
+
 const isOwner = async (req, res, next) => {
     const { id } = req.params;
     const listing = await Listing.findById(id);
-    if (!listing.author.equals(req.user._id)) {
+    if (!listing) {
+        req.flash('error', 'Cannot find that complaint!');
+        return res.redirect('/listings');
+    }
+    if (!listing.author || !req.user || !listing.author.equals(req.user._id)) {
         req.flash('error', 'You do not have permission to do that.');
         return res.redirect(`/listings/${id}`);
     }
@@ -147,7 +160,9 @@ app.get("/listings/new", isLoggedIn, (req, res) => {
 app.post("/listings", isLoggedIn, upload.single('listing[image]'), async (req, res) => {
     const newListing = new Listing(req.body.listing);
     newListing.author = req.user._id;
-    newListing.image = req.file.path;
+    if (req.file && req.file.path) {
+        newListing.image = req.file.path;
+    }
     await newListing.save();
     req.flash('success', 'New complaint registered!');
     res.redirect("/listings");
@@ -208,13 +223,19 @@ app.delete("/listings/:id", isLoggedIn, isOwner, async (req, res) => {
 app.post('/listings/:id/report', isLoggedIn, async (req, res) => {
     const { id } = req.params;
     const listing = await Listing.findById(id);
+    if (!listing) {
+      req.flash('error', 'Cannot find that complaint!');
+      return res.redirect('/listings');
+    }
     const userId = req.user._id;
-    const reportIndex = listing.reports.indexOf(userId);
-
+    if (!Array.isArray(listing.reports)) {
+      listing.reports = [];
+    }
+    const reportIndex = listing.reports.findIndex((reporterId) => reporterId.equals(userId));
     if (reportIndex === -1) {
-        listing.reports.push(userId);
+      listing.reports.push(userId);
     } else {
-        listing.reports.splice(reportIndex, 1);
+      listing.reports.splice(reportIndex, 1);
     }
     await listing.save();
     res.redirect(`/listings/${id}`);
@@ -273,6 +294,65 @@ app.get('/logout', (req, res, next) => {
         req.flash('success', 'You have been logged out.');
         res.redirect('/listings');
     });
+});
+
+// City stats API
+app.get('/api/city-stats', async (req, res) => {
+    const resolved = await Listing.aggregate([
+        { $unwind: { path: '$tracking', preserveNullAndEmptyArrays: true } },
+        { $sort: { 'tracking.updatedAt': 1 } },
+        { $group: { _id: '$_id', city: { $first: '$city' }, lastStatus: { $last: '$tracking.status' } } },
+        { $match: { lastStatus: 'Resolved' } },
+        { $group: { _id: '$city', count: { $sum: 1 } } },
+        { $sort: { count: -1 } }
+    ]);
+    res.json(resolved.map(r => ({ city: r._id || 'Unknown', count: r.count })));
+});
+
+// --- Admin Auth Routes ---
+app.get('/admin/login', (req, res) => {
+    res.render('admin/login.ejs');
+});
+
+// --- Admin Dashboard & Status Management ---
+app.get('/admin/dashboard', isLoggedIn, isAdmin, async (req, res) => {
+    // Find complaints whose latest tracking status is 'Pending Verification' or with empty tracking
+    const listings = await Listing.find({}).sort({ date: -1 });
+    const pending = listings.filter(listing => {
+        if (!listing.tracking || listing.tracking.length === 0) return true;
+        const last = listing.tracking[listing.tracking.length - 1];
+        return last.status === 'Pending Verification';
+    });
+    const authorities = await Authority.find({}).sort({ city: 1, name: 1 });
+    res.render('admin/dashboard.ejs', { pending, authorities });
+});
+
+app.post('/listings/:id/status', isLoggedIn, isAdmin, async (req, res) => {
+    const { id } = req.params;
+    const { newStatus, notes, assignedAuthority } = req.body;
+    const listing = await Listing.findById(id);
+    if (!listing) {
+        req.flash('error', 'Complaint not found');
+        return res.redirect('/admin/dashboard');
+    }
+    if (!Array.isArray(listing.tracking)) listing.tracking = [];
+    if (assignedAuthority) listing.assignedAuthority = assignedAuthority;
+    listing.tracking.push({ status: newStatus, notes });
+    await listing.save();
+    req.flash('success', 'Status updated');
+    res.redirect('/admin/dashboard');
+});
+
+app.post('/admin/login', passport.authenticate('local', {
+    failureRedirect: '/admin/login',
+    failureFlash: true
+}), (req, res) => {
+    if (!req.user || req.user.role !== 'admin') {
+        req.flash('error', 'You are not authorized as admin.');
+        return res.redirect('/admin/login');
+    }
+    req.flash('success', 'Welcome Admin!');
+    res.redirect('/admin/dashboard');
 });
 
 

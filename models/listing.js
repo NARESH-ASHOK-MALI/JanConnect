@@ -20,8 +20,32 @@ const listingSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  location: String,
+  // GeoJSON point
+  location: {
+    type: {
+      type: String,
+      enum: ['Point'],
+      default: 'Point'
+    },
+    coordinates: {
+      type: [Number],
+      default: [73.8567, 18.5204] // [lng, lat] Pune default
+    }
+  },
+  address: String,
   city: String,
+  tracking: [
+    {
+      status: {
+        type: String,
+        enum: ['Pending Verification', 'Verified', 'Assigned to Authority', 'Work in Progress', 'Resolved', 'Rejected'],
+        required: true
+      },
+      updatedAt: { type: Date, default: Date.now },
+      notes: String
+    }
+  ],
+  assignedAuthority: String,
   author: {
         type: Schema.Types.ObjectId,
         ref: 'User'

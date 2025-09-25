@@ -68,12 +68,15 @@
         </div>
 
         <div class="mb-3">
-            <label for="location-input" id="cmp" class="form-label">Location</label>
+            <label for="location-input" id="cmp" class="form-label">Address</label>
             <div class="input-group">
-            <input name="listing[location]" type="text" class="form-control" id="location-input" required />
+            <input name="listing[address]" type="text" class="form-control" id="location-input" required />
             <button class="btn btn-outline-warning" type="button" id="get-location-btn" >Get My Location</button>
           </div>
         </div>
+        <input type="hidden" name="listing[location][type]" value="Point" />
+        <input type="hidden" name="listing[location][coordinates][]" id="lng-input" />
+        <input type="hidden" name="listing[location][coordinates][]" id="lat-input" />
 
         <div id="map" class="mb-3"></div>
 
@@ -101,6 +104,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateLocation(lat, lng) {
         marker.setLatLng([lat, lng]);
         map.setView([lat, lng], 15);
+        document.getElementById('lat-input').value = lat;
+        document.getElementById('lng-input').value = lng;
         
         // Show a loading message while we fetch the address
         locationInput.value = "Fetching address...";
@@ -112,7 +117,6 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 if (data && data.display_name) {
-                    // Update the input field with the address
                     locationInput.value = data.display_name;
                 } else {
                     // Fallback to coordinates if no address is found

@@ -1,10 +1,9 @@
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">
-        <img src="/Assets/logo.png" alt="logo" style="height: 75px; width: 75px;" class="d-inline-block align-text-top">
-        
+  <div class="container-fluid align-items-center">
+    <a class="navbar-brand d-flex align-items-center" href="/">
+        <img src="/Assets/logo.png" alt="logo" class="brand-logo d-inline-block">
+        <span class="ms-2" id="brand" style="color: white;">JanConnect</span>
     </a>
-    <a class="navbar-brand" href="/" id="brand" style="color: white;">JanConnect</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -23,7 +22,11 @@
         <% if (!currentUser) { %>
           <a class="nav-link" href="/signup"><b>Sign Up</b></a>
           <a class="nav-link" href="/login"><b>Log In</b></a>
+          <a class="nav-link" href="/admin/login"><b>Admin Login</b></a>
         <% } else { %>
+          <% if (currentUser.role === 'admin') { %>
+            <a class="nav-link" href="/admin/dashboard"><b>Admin Dashboard</b></a>
+          <% } %>
           <a class="nav-link" href="/logout"><b>Log Out</b></a>
         <% } %>
       </div>
