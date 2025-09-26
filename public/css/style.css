@@ -370,6 +370,56 @@ body{
 .nav-link{
     color:#ebebeb !important;
 }
+
+/* Hamburger Menu Styling */
+.navbar-toggler {
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.navbar-toggler:hover {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25) !important;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+    width: 1.5em !important;
+    height: 1.5em !important;
+}
+
+/* Collapsed navbar menu styling */
+.navbar-collapse {
+    background-color: rgba(0, 0, 0, 0.8) !important;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    margin-top: 0.5rem;
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.navbar-collapse .navbar-nav {
+    gap: 0.5rem;
+}
+
+.navbar-collapse .nav-link {
+    padding: 0.75rem 1rem !important;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.navbar-collapse .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: #4CAF50 !important;
+}
 /* General UI Polish */
 #cmp{
     color: white !important;
@@ -581,6 +631,29 @@ form{
     --border-right: 3px;
     letter-spacing: 1px; 
     -webkit-text-stroke: 0.8px var(--text-stroke-color);
+  }
+  
+  /* Additional form improvements for very small screens */
+  .row .col-md-4,
+  .row .col-md-8 {
+    width: 100% !important;
+    margin-bottom: 1rem;
+  }
+  
+  /* Input group adjustments */
+  .input-group {
+    flex-direction: column;
+  }
+  
+  .input-group .btn {
+    margin-top: 0.5rem;
+    width: 100%;
+  }
+  
+  /* Form validation feedback */
+  .valid-feedback,
+  .invalid-feedback {
+    font-size: 0.8rem;
   }
 }
 /* Footer Styles */
@@ -900,5 +973,99 @@ footer {
   
   .dashboard-stats {
     grid-template-columns: 1fr;
+  }
+  
+  /* Responsive form layouts */
+  .row .col-6.offset-3,
+  .row .col-8.offset-2 {
+    width: 100% !important;
+    margin-left: 0 !important;
+    padding: 0 1rem;
+  }
+  
+  /* Login form adjustments */
+  form[style*="height: 60vh"] {
+    height: auto !important;
+    min-height: 50vh;
+    padding: 2rem 1rem !important;
+  }
+  
+  /* Form spacing adjustments */
+  .row.mt-3 {
+    margin-top: 1rem !important;
+  }
+  
+  /* Image preview adjustments */
+  #image-preview {
+    width: 100% !important;
+    max-width: 300px;
+  }
+  
+  /* Map container adjustments */
+  #map {
+    height: 300px !important;
+  }
+  
+  /* Button adjustments */
+  .btns {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .btns .edit {
+    margin-right: 0 !important;
+  }
+  
+  /* Show page image adjustments */
+  .show-img {
+    height: 40vh !important;
+  }
+}
+
+@media (max-width: 576px) {
+  /* Extra small screens */
+  .row .col-6.offset-3,
+  .row .col-8.offset-2 {
+    padding: 0 0.5rem;
+  }
+  
+  form[style*="height: 60vh"] {
+    padding: 1.5rem 0.5rem !important;
+  }
+  
+  /* Form labels and inputs */
+  .form-label {
+    font-size: 0.9rem;
+  }
+  
+  .form-control {
+    font-size: 0.9rem;
+    padding: 0.6rem 0.8rem;
+  }
+  
+  /* Button adjustments */
+  .btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+  
+  /* Map adjustments */
+  #map {
+    height: 250px !important;
+  }
+  
+  /* Show page adjustments */
+  .show-img {
+    height: 35vh !important;
+  }
+  
+  /* Card adjustments */
+  .card {
+    margin: 0.5rem !important;
+  }
+  
+  /* Timeline adjustments */
+  .timeline li {
+    padding: 0.4rem 0 0.4rem 0.8rem;
   }
 }
