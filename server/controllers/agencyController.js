@@ -38,9 +38,25 @@ const getAgencies = asyncHandler(async (req, res) => {
   if (isActive !== undefined) query.isActive = isActive === 'true';
 
   // State Admin can only see agencies in their state
-  if (req.user.role === 'State-Admin') {
+  if (req.user && req.user.role === 'State-Admin') {
     query.state = req.user.state;
   }
+
+  const agencies = await Agency.find(query).sort({ name: 1 });
+
+  res.json(agencies);
+});
+
+// @desc    Get all agencies (public - for signup)
+// @route   GET /api/agencies/public
+// @access  Public
+const getAgenciesPublic = asyncHandler(async (req, res) => {
+  const { type, state } = req.query;
+
+  let query = { isActive: true }; // Only show active agencies
+
+  if (type) query.type = type;
+  if (state) query.state = state;
 
   const agencies = await Agency.find(query).sort({ name: 1 });
 
@@ -106,6 +122,7 @@ const deleteAgency = asyncHandler(async (req, res) => {
 module.exports = {
   createAgency,
   getAgencies,
+  getAgenciesPublic,
   getAgencyById,
   updateAgency,
   deleteAgency,

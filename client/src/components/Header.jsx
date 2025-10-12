@@ -56,15 +56,18 @@ const Header = () => {
             </div>
           </button>
 
-          <div className="flex items-center space-x-4 px-4 py-2 bg-secondary-50 dark:bg-primary-900/30 rounded-xl border border-secondary-200/50 dark:border-primary-700/50 transition-colors duration-300">
+          <button
+            onClick={() => navigate('/profile')}
+            className="flex items-center space-x-4 px-4 py-2 bg-secondary-50 dark:bg-primary-900/30 rounded-xl border border-secondary-200/50 dark:border-primary-700/50 hover:bg-secondary-100 dark:hover:bg-primary-900/50 hover:shadow-soft transition-all duration-300 group"
+          >
             <div className="text-right">
-              <p className="text-sm font-semibold text-neutral-900 dark:text-white">{user?.name}</p>
+              <p className="text-sm font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">{user?.name}</p>
               <p className="text-xs text-primary-600 dark:text-primary-300 font-medium">{user?.role?.replace('-', ' ')}</p>
             </div>
-            <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 dark:from-primary-500 dark:to-primary-600 rounded-full flex items-center justify-center shadow-soft">
+            <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 dark:from-primary-500 dark:to-primary-600 rounded-full flex items-center justify-center shadow-soft group-hover:shadow-card transition-all">
               <FiUser className="text-white" size={20} />
             </div>
-          </div>
+          </button>
           
           <button
             onClick={handleLogout}

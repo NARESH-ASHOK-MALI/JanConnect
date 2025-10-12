@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { login, reset } from '../redux/authSlice';
 
 const LoginPage = () => {
@@ -54,15 +54,30 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-neutral-900 via-primary-900 to-primary-800 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0">
-        <img 
-          src="./background.png" 
-          alt="Background" 
-          className="w-full h-full object-cover opacity-20"
-        />
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-900/80 via-neutral-900/70 to-primary-800/90"></div>
+    <div 
+      className="min-h-screen bg-gradient-to-br from-neutral-900 via-primary-900 to-primary-800 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden cursor-pointer"
+      onClick={(e) => {
+        // Only navigate if clicking the background (not the form)
+        if (e.target === e.currentTarget) {
+          navigate('/');
+        }
+      }}
+    >
+      {/* Homepage Background with Dimmed Overlay */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Background Image from Landing Page */}
+        <div 
+          className="absolute inset-0"
+          style={{
+            backgroundImage: 'url(/assets/background.png)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundAttachment: 'fixed',
+          }}
+        ></div>
+        
+        {/* Dimmed Overlay for better login form visibility */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-900/95 via-neutral-900/95 to-primary-800/95 backdrop-blur-sm"></div>
       </div>
       
       {/* Animated Background Particles */}
@@ -74,13 +89,26 @@ const LoginPage = () => {
 
       <div className="max-w-2xl w-full relative z-10 animate-fade-in">
         {/* Enhanced Glassmorphic Card */}
-        <div className="backdrop-blur-2xl bg-neutral-900/40 rounded-3xl shadow-2xl border border-white/10 p-10 sm:p-12 hover:shadow-hover transition-all duration-300">
+        <div 
+          className="backdrop-blur-2xl bg-neutral-900/40 rounded-3xl shadow-2xl border border-white/10 p-10 sm:p-12 hover:shadow-hover transition-all duration-300"
+          onClick={(e) => e.stopPropagation()} // Prevent click from bubbling to background
+        >
           {/* Header */}
           <div className="text-center mb-10">
-            <div className="mx-auto w-28 h-28 bg-black rounded-2xl flex items-center justify-center mb-6 shadow-2xl border-2 border-primary-500/30 p-2 hover:scale-105 transition-transform duration-300">
+            <div 
+              className="mx-auto w-28 h-28 bg-black rounded-2xl flex items-center justify-center mb-6 shadow-2xl border-2 border-primary-500/30 p-2 hover:scale-105 transition-transform duration-300 cursor-pointer"
+              onClick={() => navigate('/')}
+              title="Go to Homepage"
+            >
               <img src="./assets/logo.png" alt="JanConnect Logo" className="w-full h-full object-contain drop-shadow-2xl" />
             </div>
-            <h2 className="text-4xl font-heading font-bold text-white mb-3 tracking-tight">JanConnect</h2>
+            <h2 
+              className="text-4xl font-heading font-bold text-white mb-3 tracking-tight cursor-pointer hover:text-primary-300 transition-colors"
+              onClick={() => navigate('/')}
+              title="Go to Homepage"
+            >
+              JanConnect
+            </h2>
             <p className="text-base text-primary-200 font-medium">
               PM-AJAY Scheme Management Portal
             </p>
@@ -142,6 +170,34 @@ const LoginPage = () => {
                 ) : 'Sign in'}
               </button>
             </form>
+
+            {/* Signup Link */}
+            <div className="text-center mt-6">
+              <p className="text-sm text-neutral-300">
+                Don't have an account?{' '}
+                <Link 
+                  to="/signup" 
+                  className="font-semibold text-primary-400 hover:text-primary-300 transition-colors duration-200"
+                >
+                  Sign up here
+                </Link>
+              </p>
+            </div>
+
+            {/* Back to Homepage Link */}
+            <div className="text-center mt-4">
+              <p className="text-xs text-neutral-400">
+                <Link 
+                  to="/" 
+                  className="hover:text-primary-300 transition-colors duration-200 flex items-center justify-center gap-1"
+                >
+                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                  </svg>
+                  Back to Homepage
+                </Link>
+              </p>
+            </div>
 
             {/* Demo Credentials */}
             <div className="mt-8 p-5 bg-gradient-to-br from-secondary-800/30 to-secondary-900/30 backdrop-blur-sm rounded-xl border border-secondary-600/30">

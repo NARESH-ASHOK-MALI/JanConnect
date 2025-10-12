@@ -6,12 +6,13 @@ import {
   FiUsers, 
   FiSettings,
   FiBarChart2,
-  FiFileText 
+  FiFileText,
+  FiUserCheck 
 } from 'react-icons/fi';
 import { useRole } from '../hooks/useAuth';
 
 const Sidebar = () => {
-  const { isAdmin, isStateAdmin, canManageProjects } = useRole();
+  const { isAdmin, canManageProjects } = useRole();
 
   const navItems = [
     {
@@ -27,9 +28,15 @@ const Sidebar = () => {
       show: true,
     },
     {
+      name: 'All Users',
+      path: '/users',
+      icon: FiUsers,
+      show: isAdmin,
+    },
+    {
       name: 'Agencies',
       path: '/agencies',
-      icon: FiUsers,
+      icon: FiUserCheck,
       show: canManageProjects,
     },
     {

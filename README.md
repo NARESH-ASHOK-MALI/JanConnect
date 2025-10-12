@@ -32,7 +32,133 @@ A comprehensive web portal for the Ministry of Social Justice & Empowerment to m
 
 ---
 
-## 📁 Project Structure
+## � Project Screenshots
+
+### 🏠 Landing Page & Authentication
+
+#### Homepage - Hero Section
+![Homepage Hero](./Pictures/Homepage1.png)
+*Modern landing page with hero section showcasing the PM-AJAY scheme*
+
+#### Homepage - Features Section
+![Homepage Features](./Pictures/Homepage2.png)
+*Key features and benefits of the portal*
+
+#### Homepage - Statistics & Impact
+![Homepage Statistics](./Pictures/Homepage3.png)
+*Real-time statistics and scheme impact visualization*
+
+#### Homepage - About Section
+![Homepage About](./Pictures/Homepage4.png)
+*Information about the PM-AJAY scheme and its objectives*
+
+#### Homepage - Footer
+![Homepage Footer](./Pictures/Homepage5.png)
+*Contact information and quick links*
+
+#### Login Page
+![Login Page](./Pictures/LoginPage.png)
+*Secure login interface with homepage background and multiple navigation options*
+
+#### Signup Page
+![Signup Page](./Pictures/SignUpPage.png)
+*User registration page with role-based signup and agency selection*
+
+---
+
+### 📊 Admin Dashboard & Analytics
+
+#### Admin Dashboard - Overview
+![Admin Dashboard](./Pictures/AdminDashboard1.png)
+*Comprehensive dashboard with key metrics and real-time statistics*
+
+#### Admin Dashboard - Charts
+![Admin Dashboard Charts](./Pictures/AdminDashboard2.png)
+*Interactive charts showing project distribution and financial analytics*
+
+#### Analytics - Project Distribution
+![Analytics Overview](./Pictures/AdminAnalytics1.png)
+*State-wise project distribution and component analysis*
+
+#### Analytics - Financial Metrics
+![Analytics Financial](./Pictures/AdminAnalytics2.png)
+*Budget allocation, fund utilization, and financial tracking*
+
+#### Analytics - Performance Metrics
+![Analytics Performance](./Pictures/AdminAnalytics3.png)
+*Project completion rates and performance indicators*
+
+---
+
+### 📋 Project & User Management
+
+#### Projects Management
+![Admin Projects](./Pictures/AdminProject.png)
+*Complete project listing with advanced filtering and search capabilities*
+
+#### Agencies Management
+![Admin Agencies](./Pictures/AdminAgencies.png)
+*Implementing and executing agency management interface*
+
+#### User Management
+![Admin Users](./Pictures/AdminAllUsers.png)
+*User administration with role-based access control and approval system*
+
+---
+
+### 📈 Reports & Analytics
+
+#### Reports Dashboard
+![Reports Overview](./Pictures/AdminReports1.png)
+*Comprehensive reporting system with export capabilities*
+
+#### Detailed Reports
+![Detailed Reports](./Pictures/AdminReports2.png)
+*In-depth project reports with milestone tracking and financial details*
+
+---
+
+### ⚙️ Settings & Configuration
+
+#### Settings - Profile Management
+![Settings Profile](./Pictures/Settings1.png)
+*User profile settings with personal information and avatar management*
+
+#### Settings - Security
+![Settings Security](./Pictures/Settings2.png)
+*Password management and security configuration*
+
+#### Settings - Notifications
+![Settings Notifications](./Pictures/Settings3.png)
+*Notification preferences and alert configuration*
+
+#### Settings - Email Configuration
+![Settings Email](./Pictures/Settings4.png)
+*Email settings and SMTP configuration*
+
+#### Settings - System Settings
+![Settings System](./Pictures/Settings5.png)
+*System-wide configuration and maintenance options*
+
+#### Settings - Advanced
+![Settings Advanced](./Pictures/Settings6.png)
+*Advanced settings including database management and security features*
+
+---
+
+### 🎨 Design Features
+
+- ✨ **Dark Mode UI**: Modern dark theme with glassmorphism effects
+- 🎯 **Responsive Design**: Optimized for desktop, tablet, and mobile devices
+- 🚀 **Smooth Animations**: Subtle transitions and hover effects
+- 📊 **Interactive Charts**: Real-time data visualization with Recharts
+- 🎨 **Custom Components**: Tailwind CSS with custom design system
+- 🔒 **Secure Authentication**: JWT-based authentication with role-based access
+- 📱 **Mobile-First**: Touch-friendly interface with intuitive navigation
+
+---
+
+## �📁 Project Structure
 
 ```
 JanConnect/
@@ -99,12 +225,49 @@ JanConnect/
 │   ├── postcss.config.js       # PostCSS configuration
 │   └── package.json
 │
+├── Documentation/              # 📚 All project documentation
+│   ├── INDEX.md               # Documentation index & navigation
+│   ├── SETUP.md               # Detailed setup guide
+│   ├── SEEDER.md              # Database seeding instructions
+│   ├── PROJECT_SUMMARY.md     # Project overview
+│   ├── SIGNUP-FEATURE.md      # User registration docs
+│   ├── USER-APPROVAL-EMAIL-SYSTEM.md  # Admin approval system
+│   ├── USER-PROFILE-FEATURE.md  # Profile management
+│   ├── AGENCIES-SETUP.md      # Agency management
+│   ├── flowchart.md           # System flowcharts
+│   └── [17 more documentation files...]
+│
 └── README.md                   # This file
 ```
 
 ---
 
-## 🛠️ Installation & Setup
+## � Documentation
+
+All comprehensive project documentation has been organized in the **[Documentation/](./Documentation/)** folder.
+
+### Quick Links
+- **[Documentation Index](./Documentation/INDEX.md)** - Complete documentation navigation
+- **[Setup Guide](./Documentation/SETUP.md)** - Detailed installation instructions
+- **[User Approval System](./Documentation/USER-APPROVAL-EMAIL-SYSTEM.md)** - Admin approval workflow
+- **[Profile Feature](./Documentation/USER-PROFILE-FEATURE.md)** - User profile management
+- **[Database Seeder](./Documentation/SEEDER.md)** - Database population guide
+
+### Documentation Categories
+- 🚀 **Setup & Configuration** - Project setup, environment, database
+- ✨ **Feature Documentation** - User registration, approval, profile, agencies
+- 🔧 **Troubleshooting** - Common issues, bug fixes, solutions
+- 📊 **Architecture** - Flowcharts, workflows, system design
+
+**Total**: 18 comprehensive documentation files covering all aspects of the project.
+
+→ **Start here**: [Documentation/INDEX.md](./Documentation/INDEX.md)
+
+---
+
+## �🛠️ Installation & Setup
+
+> **Detailed setup instructions available in [Documentation/SETUP.md](./Documentation/SETUP.md)**
 
 ### Prerequisites
 - Node.js (v16 or higher)

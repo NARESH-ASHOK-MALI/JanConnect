@@ -3,11 +3,15 @@ const router = express.Router();
 const {
   createAgency,
   getAgencies,
+  getAgenciesPublic,
   getAgencyById,
   updateAgency,
   deleteAgency,
 } = require('../controllers/agencyController');
 const { protect, adminOnly, stateAdminOnly } = require('../middleware/authMiddleware');
+
+// Public route for signup page
+router.get('/public', getAgenciesPublic);
 
 router.route('/')
   .get(protect, getAgencies)
