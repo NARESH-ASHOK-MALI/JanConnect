@@ -40,15 +40,15 @@ A comprehensive web portal for the Ministry of Social Justice & Empowerment to m
 ![Homepage Hero](./Pictures/Homepage1.png)
 *Modern landing page with hero section showcasing the PM-AJAY scheme*
 
-#### Homepage - Features Section
+#### Homepage - About Section
 ![Homepage Features](./Pictures/Homepage2.png)
 *Key features and benefits of the portal*
 
-#### Homepage - Statistics & Impact
+#### Homepage - Feature Section
 ![Homepage Statistics](./Pictures/Homepage3.png)
 *Real-time statistics and scheme impact visualization*
 
-#### Homepage - About Section
+#### Homepage - Objectives Section
 ![Homepage About](./Pictures/Homepage4.png)
 *Information about the PM-AJAY scheme and its objectives*
 
